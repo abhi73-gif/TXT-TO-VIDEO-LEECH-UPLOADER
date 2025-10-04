@@ -1,22 +1,31 @@
-
-
 from os import environ
 
-API_ID = int(environ.get("20937420", "write yours"))
-API_HASH = environ.get("09d7f6744feb17759304df65666961da", "write yours")
-BOT_TOKEN = environ.get("BOT_TOKEN", "write yours")
+def safe_int(value, default):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return default
+
+API_ID = safe_int(environ.get("API_ID"), 20937420)
+API_HASH = environ.get("API_HASH", "09d7f6744feb17759304df65666961da")
+BOT_TOKEN = environ.get("BOT_TOKEN", "")  # Isse Render ya .env file se zarur set karein
 
 # Force Subscribe Configuration
-FORCE_SUB_CHANNEL = environ.get("FORCE_SUB_CHANNEL", "abbhffi8uy")  # Channel username without @, 
-FORCE_SUB_CHANNEL_LINK = environ.get("FORCE_SUB_CHANNEL_LINK", "https://t.me/abbhffi8uy")  # Channel link
+FORCE_SUB_CHANNEL = environ.get("FORCE_SUB_CHANNEL", "abbhffi8uy")
+FORCE_SUB_CHANNEL_LINK = environ.get("FORCE_SUB_CHANNEL_LINK", "https://t.me/abbhffi8uy")
 
 # Admin Configuration
-ADMINS = list(map(int, environ.get("ADMINS", "7881009185").split()))
+admin_env = environ.get("ADMINS", "7881009185")
+try:
+    ADMINS = list(map(int, admin_env.split())) if admin_env else []
+except ValueError:
+    ADMINS = [7881009185]
 
 # Optional: Bot Owner ID
-OWNER_ID = int(environ.get("OWNER_ID", "7881009185"))
+OWNER_ID = safe_int(environ.get("OWNER_ID"), 7881009185)
 
-# Database URL (if you want to add database support later)
-DATABASE_URL = environ.get("mongodb+srv://abhi736902:Abhishek2007@cluster0.3lujetq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "")
-
-
+# Database URL (MongoDB)
+DATABASE_URL = environ.get(
+    "DATABASE_URL",
+    "mongodb+srv://abhi736902:Abhishek2007@cluster0.3lujetq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+)
