@@ -413,7 +413,7 @@ async def direct_download_video(url, name, progress_callback=None):
                     downloaded = 0
                     
                     async with aiofiles.open(filename, 'wb') as file:
-                        async for chunk in response.content.iter_chunked(16384):  # 16KB chunks
+                        async for chunk in response.content.iter_chunked(65536):  # 16KB chunks
                             await file.write(chunk)
                             downloaded += len(chunk)
                             
