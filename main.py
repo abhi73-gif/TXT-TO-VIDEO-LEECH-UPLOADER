@@ -335,7 +335,7 @@ async def upload(bot: Client, m: Message):
                         else:
                             failed_downloads += 1
                             await prog.edit(f"❌ **Failed:** {name1}")
-                            await asyncio.sleep(2)
+                            await asyncio.sleep(1)
                     
                     await prog.delete()
                     count += 1
@@ -343,12 +343,12 @@ async def upload(bot: Client, m: Message):
                     
                 except FloodWait as e:
                     await m.reply_text(f"⚠️ **Rate limited. Waiting {e.x} seconds...**")
-                    time.sleep(e.x)
+                    time.sleep(3)
                     continue
                 except Exception as download_error:
                     failed_downloads += 1
                     await prog.edit(f"❌ **Error:** {str(download_error)[:100]}")
-                    await asyncio.sleep(3)
+                    await asyncio.sleep(0.5)
                     continue
 
             except Exception as e:
