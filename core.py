@@ -93,7 +93,7 @@ async def download_video(url, cmd, name, progress_callback=None):
             # For visionias, retry logic
             if "visionias" in cmd and failed_counter <= 10:
                 failed_counter += 1
-                await asyncio.sleep(5)
+                await asyncio.sleep(1)
                 return await download_video(url, cmd, name, progress_callback)
         
         failed_counter = 0
@@ -135,7 +135,7 @@ async def send_doc(bot: Client, m: Message,cc,ka,cc1,prog,count,name):
         time.sleep(1)
         if os.path.exists(ka):
             os.remove(ka)
-        time.sleep(3)
+        time.sleep(1)
     except Exception as e:
         print(f"Error in send_doc: {e}")
 
@@ -393,7 +393,7 @@ async def direct_download_video(url, name, progress_callback=None):
         }
         
         # Increased timeout for Railway's environment
-        timeout = aiohttp.ClientTimeout(total=7200)  # 2 hours for large files
+        timeout = aiohttp.ClientTimeout(total=3600)  # 2 hours for large files
         
         connector = aiohttp.TCPConnector(
             limit=100,
